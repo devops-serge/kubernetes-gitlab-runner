@@ -1,0 +1,22 @@
+stages:
+  - build
+
+# https://docs.gitlab.com/ee/ci/docker/using_kaniko.html
+build:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:v1.14.0-debug
+    entrypoint: [""]
+  variables:
+    CONTAINER_NAME: momomo
+    CONTAINER_TAG: 1.0.0
+  script:
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination $CI_REGISTRY_IMAGE/$CONTAINER_NAME:$CONTAINER_TAG-$CI_PIPELINE_IID
+      --destination $CI_REGISTRY_IMAGE/$CONTAINER_NAME:latest
+  when: manual
+  tags:
+  - kubernetes
+    

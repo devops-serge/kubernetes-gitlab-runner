@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: momomo
+    image: gitlab.devops-serge.com:5050/serge/kubernetes-gitlab-runner/momomo:latest
+  imagePullSecrets:
+  - name: container-registry
